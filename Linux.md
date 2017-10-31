@@ -4,9 +4,11 @@
 cat /proc/version
 uname -a
 uname -r
+
 # 查看linux版本
 lsb_release -a
 cat /etc/redhat-release
+
 # 查看系统是64位还是32位
 getconf LONG_BIT
 file /bin/ls
@@ -26,11 +28,14 @@ yum install curl git -y
 ```shell
 # 安装nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
+
 # 验证是否安装成功
 source ~/.bashrc
 nvm --version
+
 # 查看nodejs版本
 nvm ls-remote
+
 # 安装nodejs
 nvm install v8
 node -v
@@ -41,13 +46,17 @@ node -v
 # 安装 mysql
 yum install https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm -y
 yum install mysql-community-server -y
+
 # 启动 mysql
 systemctl start mysqld
 systemctl enable mysqld
+
 # 查找 root 的初始密码
 cat /var/log/mysqld.log | grep password
+
 # 更改密码及配置安全策略
 mysql_secure_installation
+
 # 验证 mysql 是否安装成功
 mysql -uroot -p
 ```
@@ -64,12 +73,15 @@ thinkjs --version
 mkdir /var/www
 cd /var/www
 git clone https://github.com/tumobi/nideshop
+
 # 安装依赖
 cd /var/www/nideshop
 npm install
+
 # 创建数据库并导入数据
 mysql -uroot -p -e "create database nideshop character set utf8mb4"
 mysql -uroot -p nideshop < /var/www/nideshop/nideshop.sql
+
 # 修改 Nideshop 的数据库配置
 vim /var/www/nideshop/src/common/config/adapter.js
 ```
@@ -103,8 +115,10 @@ exports.model = {
 ```shell
 # 编译项目
 npm run compile
+
 # 以生产模式启动
 node production.js
+
 # 打开另一个终端验证是否启动成功
 curl -I http://127.0.0.1:8360/
 # 输出 HTTP/1.1 200 OK，则表示成功
@@ -114,6 +128,7 @@ curl -I http://127.0.0.1:8360/
 ```shell
 # 安装配置 pm2
 npm install -g pm2
+
 # 修改项目根目录下的 pm2.json
 vim pm2.json
 ```
@@ -140,6 +155,7 @@ vim pm2.json
 ```shell
 # 启动pm2
 pm2 start pm2.json
+
 # 再次验证是否可以访问
 curl -I http://127.0.0.1:8360/
 ```
@@ -150,8 +166,10 @@ curl -I http://127.0.0.1:8360/
 yum install nginx -y
 systemctl start nginx.service
 systemctl enable nginx.service
+
 # 测试本地是否可以正常访问
 curl -I localhost
+
 # 修改nginx配置
 cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 vim /etc/nginx/nginx.conf
@@ -236,12 +254,16 @@ curl http://127.0.0.1/
 yum install epel-release -y
 yum install certbot-nginx -y
 certbot --nginx
+
 # 如果 certbot -nginx 这步出错，则执行
 pip install --upgrade --force-reinstall 'requests==2.6.0' urllib3
+
 # 重新执行
 certbot --nginx
+
 # 配置自动更新证书
 certbot renew --dry-run
+
 # 测试浏览器使用https形式访问是否成功
 ```
 
